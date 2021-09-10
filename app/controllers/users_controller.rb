@@ -49,10 +49,30 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    @name = @user.name
+    @email = @user.email
+    @birthdate = @user.birthdate
     @user.destroy
+    #respond_to do |format|
+    #  format.html { redirect_to "/users/destroy.html.erb", notice: "User was successfully destroyed." }
+    #  format.json { head :no_content }
+    #end
+  end
+  
+  def create_fast
+    @name = params[:name]
+    @email = params[:email]
+    @birthdate = params[:birthdate]
+    @user = User.create(name:@name, email:@email, birthdate:@birthdate)
+    
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+      if @user.save
+        format.html { redirect_to @user, notice: "User was successfully created." }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -65,9 +85,5 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:email, :name, :birthdate)
-    end
-    
-    def create_fast
-    	
     end
 end
