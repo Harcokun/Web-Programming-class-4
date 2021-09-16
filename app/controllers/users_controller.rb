@@ -52,6 +52,8 @@ class UsersController < ApplicationController
     @name = @user.name
     @email = @user.email
     @birthdate = @user.birthdate
+    @address = @user.address
+    @postal_code = @user.postal_code
     @user.destroy
     #respond_to do |format|
     #  format.html { redirect_to "/users/destroy.html.erb", notice: "User was successfully destroyed." }
@@ -63,7 +65,9 @@ class UsersController < ApplicationController
     @name = params[:name]
     @email = params[:email]
     @birthdate = params[:birthdate]
-    @user = User.create(name:@name, email:@email, birthdate:@birthdate)
+    @address = params[:address]
+    @postal_code = params[:postal_code]
+    @user = User.create(name:@name, email:@email, birthdate:@birthdate, address:@address, postal_code:@postal_code)
     
     respond_to do |format|
       if @user.save
@@ -84,6 +88,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :name, :birthdate)
+      params.require(:user).permit(:email, :name, :birthdate, :address, :postal_code)
     end
 end
