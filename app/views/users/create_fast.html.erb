@@ -10,6 +10,7 @@
       <th>Birthdate</th>
       <th>Address</th>
       <th>Postal Code</th>
+      <th>Pass</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -21,6 +22,7 @@
        <td><%= @birthdate %></td>
        <td><%= @address %></td>
        <td><%= @postal_code %></td>
+       <td><%= @pass %></td>
        <td><%= link_to 'Show', user %></td>
        <td><%= link_to 'Edit', edit_user_path(user) %></td>
        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

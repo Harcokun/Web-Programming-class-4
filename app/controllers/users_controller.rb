@@ -9,6 +9,13 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
   end
+  
+  def show_post
+    @user = User.find_by(email: params[:email])
+    if(@user.nil? || @user.pass != params[:pass])
+      redirect_to "/main", alert: "Incorrect Email or pass"
+    end 
+  end
 
   # GET /users/new
   def new
@@ -17,6 +24,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+  
+  def main
   end
 
   # POST /users or /users.json
@@ -54,6 +64,7 @@ class UsersController < ApplicationController
     @birthdate = @user.birthdate
     @address = @user.address
     @postal_code = @user.postal_code
+    @pass = @user.pass
     @user.destroy
     #respond_to do |format|
     #  format.html { redirect_to "/users/destroy.html.erb", notice: "User was successfully destroyed." }
@@ -67,7 +78,8 @@ class UsersController < ApplicationController
     @birthdate = params[:birthdate]
     @address = params[:address]
     @postal_code = params[:postal_code]
-    @user = User.create(name:@name, email:@email, birthdate:@birthdate, address:@address, postal_code:@postal_code)
+    @pass = params[:pass]
+    @user = User.create(name:@name, email:@email, birthdate:@birthdate, address:@address, postal_code:@postal_code, pass:@pass)
     
     respond_to do |format|
       if @user.save
@@ -88,6 +100,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :name, :birthdate, :address, :postal_code)
+      params.require(:user).permit(:email, :name, :birthdate, :address, :postal_code, :pass)
     end
 end

@@ -10,6 +10,7 @@
       <th>Birthdate</th>
       <th>Address</th>
       <th>Postal Code</th>
+      <th>Pass</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -21,8 +22,9 @@
        <td><%= @birthdate %></td>
        <td><%= @address %></td>
        <td><%= @postal_code %></td>
+       <td><%= @pass %></td>
        <td><%= link_to 'Index', users_url %></td>
-       <td><%= link_to 'Recreate this user', "/create_fast?name=#{@name}&email=#{@email}&birthdate=#{@birthdate}&address=#{@address}&postal_code=#{@postal_code}" %></td>
+       <td><%= link_to 'Recreate this user', "/create_fast?name=#{@name}&email=#{@email}&birthdate=#{@birthdate}&address=#{@address}&postal_code=#{@postal_code}&pass=#{@pass}" %></td>
     </tr>
   </tbody>
 </table>
